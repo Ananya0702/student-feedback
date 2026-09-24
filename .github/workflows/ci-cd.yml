@@ -20,7 +20,7 @@ jobs:
       - name: Lint
         run: flake8 . --max-line-length=100 --exclude=.venv
       - name: Unit tests
-        run: pytest -v
+        run: pytest -m pytest -v
 
   build-and-deploy:
     name: Build & Push Docker image
