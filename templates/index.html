@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Feedback</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;color:#222}
+    form{display:grid;gap:.75rem;margin-bottom:2rem}
+    input,textarea,button{font:inherit;padding:.6rem;border:1px solid #bbb;border-radius:6px}
+    button{background:#2563eb;color:#fff;border:0;cursor:pointer}
+    .card{border:1px solid #ddd;border-radius:8px;padding:1rem;margin-bottom:1rem}
+    .meta{color:#666;font-size:.85rem}
+    .success{color:#166534}.error{color:#b91c1c}
+  </style>
+</head>
+<body>
+  <h1>Student Feedback</h1>
+  {% for category, message in get_flashed_messages(with_categories=true) %}
+    <p class="{{ category }}">{{ message }}</p>
+  {% endfor %}
+  <form method="post">
+    <input name="name" placeholder="Your name" required>
+    <input name="course" placeholder="Course" required>
+    <textarea name="feedback" rows="4" placeholder="Your feedback" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  <h2>Submitted Feedback</h2>
+  {% for e in entries %}
+    <div class="card">
+      <strong>{{ e.name }}</strong> <span class="meta">· {{ e.course }} · {{ e.created_at }}</span>
+      <p>{{ e.feedback }}</p>
+    </div>
+  {% else %}
+    <p>No feedback yet.</p>
+  {% endfor %}
+</body>
+</html>
